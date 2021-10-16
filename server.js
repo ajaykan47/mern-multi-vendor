@@ -19,20 +19,32 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(bodyParser.json());
 
-app.listen(9001);
+app.listen(9000);
 
-// const db = require('./config/keys').mongoURI;
+// mongodb+srv://ajaykan47:<password>@cluster0.ms4u6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+//const DB = 'mongodb+srv://ajaykan47:Mern@123@cluster0.ms4u6.mongodb.net/ictkart_db?retryWrites=true&w=majority';
 
-// mongoose.connect(db, { useNewUrlParser: true })
-//     .then(() =>
-//         console.log('MongoDB successfully connected.')
-//     ).catch(err => console.log(err));
+// mongoose.connect(DB, {
+//   useNewUrlParser: true,
+//   useCreateIndex: true,
+//   useUnifiedTopology:true,
+//   useFindAndModify: false
 
+// }).then(() => {
+//   console.log('connection successfully...');
+// });
 
-const uri = "mongodb+srv://ajay:Chetu@123@cluster0.hr6ka.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+/**
+ * Database connection prepared
+*/
+const uri = 'mongodb+srv://ajaykan47:Mern@123@cluster0.ms4u6.mongodb.net/ictkart_db?retryWrites=true&w=majority';
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-  const collection = client.db("test").collection("devices");
+  const collection = client.db("ictkart_db").collection("users");
+  //console.log('ajay=========', collection);
+  collection.find().each(function(error, user) {
+    console.log('user=====>', user);
+   });
   // perform actions on the collection object
   client.close();
 });
@@ -48,6 +60,6 @@ app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
