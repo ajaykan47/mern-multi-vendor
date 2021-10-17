@@ -1,4 +1,4 @@
-## MERN-Admin-Panel
+## MERN-Admin-Panel-for-multivendor
 
 ## Features
 * Login-page and Basic layout design done by using Bootstrap
